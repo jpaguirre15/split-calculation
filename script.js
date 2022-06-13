@@ -1,23 +1,43 @@
 "use strict";
 
 // SELECTORS
+
+// selectors for the addTodo function
 const formInput = document.querySelector('.form-control');
 const addButton = document.querySelector('.btn');
 const formList = document.querySelector('.list-group');
 
+// check selector output
 console.log(formInput);
 console.log(addButton);
 console.log(formList);
 
 
+// selectors for striketext function 
+const checkmark = document.querySelectorAll('.form-check-input');
+
+// check selector output 
+console.log(checkmark);
+for (let i = 0; i < checkmark.length; i++) {
+
+    // print all that are checked
+    if (checkmark[i].checked === true) {
+        console.log(checkmark[i]);
+    }
+
+}
+
+// -----
 // EVENT LISTENERS
 
 // add an item to the list
 addButton.addEventListener('click', addTodo);
 
 // strikethrough items that are checked 
+checkmark[0].addEventListener('click', strikeText);
 
 
+// -----
 // FUNCTIONS
 
 // add an item to the list 
@@ -73,3 +93,10 @@ function addTodo(event) {
     formInput.value = '';
 
 };
+
+function strikeText(event) {
+
+
+
+
+}; 
