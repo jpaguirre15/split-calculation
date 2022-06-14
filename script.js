@@ -1,5 +1,8 @@
 "use strict";
 
+// **notes
+// - will probably need to create <span> text for the text
+
 // SELECTORS
 
 // selectors for the addTodo function
@@ -24,7 +27,6 @@ for (let i = 0; i < checkmark.length; i++) {
     if (checkmark[i].checked === true) {
         console.log(checkmark[i]);
     }
-
 }
 
 // -----
