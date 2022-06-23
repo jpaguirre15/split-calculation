@@ -96,9 +96,12 @@
                             <!-- Tip Buttons -->
                             <div id="tip">
                                 <h6 class="mb-3">Tip</h6>
-                                <button type="button" class="btn btn-outline-dark">15%</button>
-                                <button type="button" class="btn btn-outline-dark">18%</button>
-                                <button type="button" class="btn btn-outline-dark">20%</button>
+                                <button id="first-tax" type="button" class="btn btn-outline-dark"
+                                    value=".15">15%</button>
+                                <button id="second-tax" type="button" class="btn btn-outline-dark"
+                                    value=".18">18%</button>
+                                <button id="third-tax" type="button" class="btn btn-outline-dark"
+                                    value=".20">20%</button>
 
                             </div>
 
@@ -109,17 +112,38 @@
                             <!-- Tax Rate -->
                             <div>
                                 <h6 class="mb-3">Sales Tax</h6>
-                                <input type="text" class="form-control"
-                                    aria-label="Dollar amount (with dot and two decimal places)">
+                                <input id="sales-tax" type="text" class="form-control" value="8.375"
+                                    placeholder="Enter sales tax %">
                                 <span class="input-group-text">%</span>
                             </div>
 
 
-
-
                             <!-- Calculate button -->
                             <br>
-                            <button id="calculate" type="button" class="btn btn-success">Calculate</button>
+                            <button id="calculate" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">Calculate</button>
+
+                            <!-- Total Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Total</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            $x.xx
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Venmo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
 
