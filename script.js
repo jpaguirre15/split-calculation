@@ -16,18 +16,10 @@ console.log(addButton);
 console.log(formList);
 
 
-// selectors for striketext function 
-const checkmark = document.querySelectorAll('.form-check-input');
 
-// check selector output 
-console.log(checkmark);
-for (let i = 0; i < checkmark.length; i++) {
+// keep track of items in list, push items in the array
+const items = [];
 
-    // print all that are checked
-    if (checkmark[i].checked === true) {
-        console.log(checkmark[i]);
-    }
-}
 
 // -----
 // EVENT LISTENERS
@@ -35,8 +27,6 @@ for (let i = 0; i < checkmark.length; i++) {
 // add an item to the list
 addButton.addEventListener('click', addTodo);
 
-// strikethrough items that are checked 
-checkmark[0].addEventListener('click', strikeText);
 
 
 // -----
@@ -67,6 +57,8 @@ function addTodo(event) {
     // create div tag (inside li tag)
     const divTodo = document.createElement('div');
 
+    divTodo.setAttribute('id', 'item' + items.length);
+
     divTodo.classList.add("d-flex");
     divTodo.classList.add("align-items-center");
 
@@ -91,8 +83,13 @@ function addTodo(event) {
     // append the li tag
     formList.appendChild(liTodo);
 
+    // push price value into the array
+    items.push(formInput.value);
+
     // clear to do input value
     formInput.value = '';
+
+
 
 };
 
