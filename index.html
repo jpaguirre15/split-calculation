@@ -22,17 +22,28 @@
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
 
-                            <h6 class="mb-3">Split the Bill</h6>
+                            <h4 class="mb-3">Split Calculation</h4>
 
                             <form class="d-flex justify-content-center align-items-center mb-4">
                                 <div class="form-outline flex-fill">
-                                    <input type="text" id="form3" class="form-control form-control-lg"
-                                        placeholder="Enter price(s) here, numbers only" />
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" id="form3" class="form-control"
+                                        aria-label="Enter price(s) here, numbers only)">
+
+                                    <!-- <input type="text" id="form3" class="form-control form-control-lg"
+                                        placeholder="Enter price(s) here, numbers only" /> -->
+
+
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-lg ms-2">Add</button>
                             </form>
 
+
+                            <h5 class="mb-3">List</h5>
+                            <hr>
                             <ul class="list-group mb-0">
+
+
                                 <!-- NEW LIST ITEM STRUCTURE EXAMPLE, checked === false -->
                                 <!--  
                                 <li
@@ -61,8 +72,9 @@
                                     </a>
                                 </li>
                                 -->
-                                <!-- NEW LIST ITEM STRUCTURE EXAMPLE, using id on div tag -->
-                                <!-- 
+
+                                <!-- NEW LIST ITEM STRUCTURE EXAMPLE, using id on div tag with delete button -->
+                                <!--  
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                                     <div id="item1" class="d-flex align-items-center">
@@ -73,11 +85,44 @@
                                     <a href="#!" data-mdb-toggle="tooltip" title="Remove item">
                                         <i class="fas fa-times text-primary"></i>
                                     </a>
+
+                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+
                                 </li>
                                 -->
                             </ul>
+                            <hr>
+
+                            <!-- Tip Buttons -->
+                            <div id="tip">
+                                <h6 class="mb-3">Tip</h6>
+                                <button type="button" class="btn btn-outline-dark">15%</button>
+                                <button type="button" class="btn btn-outline-dark">18%</button>
+                                <button type="button" class="btn btn-outline-dark">20%</button>
+
+                            </div>
+
+                            <br>
+
+
+
+                            <!-- Tax Rate -->
+                            <div>
+                                <h6 class="mb-3">Sales Tax</h6>
+                                <input type="text" class="form-control"
+                                    aria-label="Dollar amount (with dot and two decimal places)">
+                                <span class="input-group-text">%</span>
+                            </div>
+
+
+
+
+                            <!-- Calculate button -->
+                            <br>
+                            <button id="calculate" type="button" class="btn btn-success">Calculate</button>
 
                         </div>
+
                     </div>
 
                 </div>

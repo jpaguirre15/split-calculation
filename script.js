@@ -16,7 +16,6 @@ console.log(addButton);
 console.log(formList);
 
 
-
 // keep track of items in list, push items in the array
 const items = [];
 
@@ -80,8 +79,24 @@ function addTodo(event) {
     // name of list that is added before the closing div tag
     divTodo.innerHTML += formInput.value;
 
+    // create button tag (delete button)
+    const deleteButton = document.createElement('button');
+    deleteButton.type = "button";
+    deleteButton.classList.add('btn');
+    deleteButton.classList.add('btn-danger');
+    deleteButton.classList.add('btn-sm');
+    deleteButton.innerHTML = "Delete"
+
+    // divTodo.appendChild(deleteButton);
+    // deleteButton.append();
+    // FIGURE OUT HOW TO ADD DELETE BUTTON
+
     // append the li tag
     formList.appendChild(liTodo);
+
+
+
+
 
     // push price value into the array
     items.push(formInput.value);
@@ -93,9 +108,3 @@ function addTodo(event) {
 
 };
 
-function strikeText(event) {
-
-
-
-
-}; 
