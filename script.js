@@ -17,7 +17,11 @@ console.log(formList);
 
 
 // keep track of items in list, push items in the array
-const items = [];
+// keep as var so we can convert the values to Numbers
+var items = [];
+
+// selectors for the calculate function
+const calculateButton = document.querySelector('#calculate');
 
 
 // -----
@@ -25,6 +29,9 @@ const items = [];
 
 // add an item to the list
 addButton.addEventListener('click', addTodo);
+
+// calculate button
+calculateButton.addEventListener('click', calculate)
 
 
 
@@ -51,7 +58,6 @@ function addTodo(event) {
     liTodo.classList.add("border-bottom")
     liTodo.classList.add("rounded-0")
     liTodo.classList.add("mb-2")
-    // liTodo.innerText = formInput.value;
 
     // create div tag (inside li tag)
     const divTodo = document.createElement('div');
@@ -80,23 +86,11 @@ function addTodo(event) {
     divTodo.innerHTML += formInput.value;
 
     // create button tag (delete button)
-    const deleteButton = document.createElement('button');
-    deleteButton.type = "button";
-    deleteButton.classList.add('btn');
-    deleteButton.classList.add('btn-danger');
-    deleteButton.classList.add('btn-sm');
-    deleteButton.innerHTML = "Delete"
+    liTodo.innerHTML += '<button type="button" class="btn btn-danger btn-sm">Delete</button>';
 
-    // divTodo.appendChild(deleteButton);
-    // deleteButton.append();
-    // FIGURE OUT HOW TO ADD DELETE BUTTON
 
     // append the li tag
     formList.appendChild(liTodo);
-
-
-
-
 
     // push price value into the array
     items.push(formInput.value);
@@ -104,7 +98,21 @@ function addTodo(event) {
     // clear to do input value
     formInput.value = '';
 
-
-
 };
+
+
+// calculations 
+function calculate(event) {
+    // convert the whole array to numbers
+    items = items.map(Number);
+
+    const itemSum = items.reduce(function (a, b) {
+        return a + b;
+
+    }, 0);
+
+    console.log(itemSum);
+
+}
+
 
