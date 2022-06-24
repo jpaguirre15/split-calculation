@@ -27,7 +27,7 @@
                             <form class="d-flex justify-content-center align-items-center mb-4">
                                 <div class="form-outline flex-fill">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" id="form3" class="form-control"
+                                    <input type="text" id="form3" class="form-control"
                                         aria-label="Enter price(s) here, numbers only)">
 
                                     <!-- <input type="text" id="form3" class="form-control form-control-lg"
@@ -94,20 +94,41 @@
                             <hr>
 
                             <!-- Tip Buttons -->
-                            <div id="tip">
+                            <!-- <div id="tip">
                                 <h6 class="mb-3">Tip</h6>
-                                <button id="tax1" type="button" class="btn btn-outline-dark" value=".15">15%</button>
-                                <button id="tax2" type="button" class="btn btn-outline-dark" value=".18">18%</button>
-                                <button id="tax3" type="button" class="btn btn-outline-dark" value=".20">20%</button>
+                                <button id="tip1" type="button" class="btn btn-outline-dark" value=".15">15%</button>
+                                <button id="tip2" type="button" class="btn btn-outline-dark" value=".18">18%</button>
+                                <button id="tip3" type="button" class="btn btn-outline-dark" value=".20">20%</button> -->
 
+
+                            <!-- For custom tip  -->
+                            <!--                                 
                                 <span class="input-group-text">$</span>
                                 <input type="text" class="form-control"
-                                    aria-label="Dollar amount (with dot and two decimal places)">
+                                    aria-label="Dollar amount (with dot and two decimal places)"> 
 
+                            </div>-->
 
+                            <!-- Tip Buttons -->
+                            <h6 class="mb-3">Tip</h6>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input value=.15 type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnradio1">15%</label>
 
+                                <input value=.18 type="radio" class="btn-check" name="btnradio" id="btnradio2"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnradio2">18%</label>
+
+                                <input value=.20 type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnradio3">20%</label>
+
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnradio4">Custom</label>
                             </div>
 
+                            <br>
                             <br>
 
 
@@ -115,7 +136,7 @@
                             <!-- Tax Rate -->
                             <div>
                                 <h6 class="mb-3">Sales Tax</h6>
-                                <input id="sales-tax" type="text" class="form-control" value="8.375"
+                                <input id="sales-tax" type="text" class="form-control" value=8.375
                                     placeholder="Enter sales tax %">
                                 <span class="input-group-text">%</span>
                             </div>
@@ -123,8 +144,8 @@
 
                             <!-- Calculate button -->
                             <br>
-                            <button id="calculate" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Calculate</button>
+                            <button disabled id="calculate" type="button" class="btn btn-success btn-lg"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">Calculate</button>
 
 
                             <!-- Total Modal -->

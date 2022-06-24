@@ -3,41 +3,67 @@
 // **notes
 // - will probably need to create <span> text for the text
 
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // SELECTORS
 
+// -----
 // selectors for the addTodo function
 const formInput = document.querySelector('.form-control');
 const addButton = document.querySelector('.btn');
 const formList = document.querySelector('.list-group');
 
 // check selector output
-console.log(formInput);
-console.log(addButton);
-console.log(formList);
+// console.log(formInput);
+// console.log(addButton);
+// console.log(formList);
 
-
+// -----
 // keep track of items in list, push items in the array
 // keep as var so we can convert the values to Numbers
 var items = [];
 
+// -----
 // selectors for the calculate function
 const calculateButton = document.querySelector('#calculate');
 
+// -----
+// selectors for the tip buttons 
+const tipGroup = document.querySelector('.btn-group');
+const tipSelect = tipGroup.querySelectorAll('.btn-check');
+let tip = 0;
+
+
+
+
 
 // -----
+// selector for the delete button
+
+
+
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // EVENT LISTENERS
 
+// -----
 // add an item to the list
 addButton.addEventListener('click', addTodo);
 
+// -----
 // calculate button
 calculateButton.addEventListener('click', calculate)
 
-
-
 // -----
+// tip buttons
+tipGroup.addEventListener('click', tipValue);
+
+
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // FUNCTIONS
 
+// -----
 // add an item to the list 
 function addTodo(event) {
     // stop page from refreshing
@@ -92,6 +118,9 @@ function addTodo(event) {
     // append the li tag
     formList.appendChild(liTodo);
 
+    // remove disable status when items are added
+    calculateButton.disabled = false;
+
     // push price value into the array
     items.push(formInput.value);
 
@@ -100,18 +129,57 @@ function addTodo(event) {
 
 };
 
+// -----
+// extract tip value 
+function tipValue(event) {
 
+    for (let i = 0; i < tipSelect.length; i++) {
+        // if button is selected, set that as the new tip value 
+        if (tipSelect[i].checked === true) {
+            console.log(tipSelect[i].value + ' is checked');
+            tip = tipSelect[i].value;
+        }
+    }
+
+}
+
+// -----
 // calculations 
 function calculate(event) {
     // convert the whole array to numbers
     items = items.map(Number);
 
-    const itemSum = items.reduce(function (a, b) {
+    // sum up everything in items array
+    let total = items.reduce(function (a, b) {
         return a + b;
 
     }, 0);
 
-    console.log(itemSum);
+    console.log(total);
+
+    // get the tip value from the buttons 
+    // see above (at selectors)
+
+    // convert it to decimal form
+    tip = Number(tip);
+
+    // add it to the total
+    const tipTotal = tip * total;
+    console.log(tipTotal);
+
+    // get the sales tax value from the sales tax
+    const salesTax = document.querySelectorAll('.form-control')[1].value;
+    const taxTotal = (salesTax * 0.01) * total;
+    console.log(taxTotal);
+
+    // add it to the total, nearest tenths round
+    total = Math.round((tipTotal + taxTotal + total) * 100) / 100;
+    console.log(total);
+
+    const stats = document.querySelector('.modal-body');
+    stats.innerText = '\n                                           $' + total + '\n                                        '
+        ;
+
 
 }
 
