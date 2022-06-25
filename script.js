@@ -203,17 +203,17 @@ function calculate(event) {
 }
 
 
-// -----
-// delete button
-function deleteBtn(event) {
-    const deleteItem = event.target;
-    console.log(event.target);
+// // -----
+// // delete button
+// function deleteBtn(event) {
+//     const deleteItem = event.target;
+//     console.log(event.target);
 
-    // delete item line
-    if (deleteItem.classList[0] === "btn") {
-        formList.querySelector('.list-group-item').remove();
-        items.pop();
+//     // delete item line
+//     if (deleteItem.classList[0] === "btn") {
+//         formList.querySelector('.list-group-item').remove();
+//         items.pop();
 
-    }
+//     }
 
-}
+// }
