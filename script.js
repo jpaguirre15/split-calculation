@@ -5,6 +5,14 @@
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
+// MISC
+var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // SELECTORS
 
 // -----
@@ -12,6 +20,8 @@
 const formInput = document.querySelector('.form-control');
 const addButton = document.querySelector('.btn');
 const formList = document.querySelector('.list-group');
+
+
 
 // check selector output
 // console.log(formInput);
@@ -33,14 +43,9 @@ const tipGroup = document.querySelector('.btn-group');
 const tipSelect = tipGroup.querySelectorAll('.btn-check');
 let tip = 0;
 
-
-
-
-
 // -----
 // selector for the delete button
-
-
+// see formList variable
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -58,10 +63,16 @@ calculateButton.addEventListener('click', calculate)
 // tip buttons
 tipGroup.addEventListener('click', tipValue);
 
+// -----
+// delete button access
+formList.addEventListener('click', deleteBtn);
+
+
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
 // FUNCTIONS
+
 
 // -----
 // add an item to the list 
@@ -112,7 +123,7 @@ function addTodo(event) {
     divTodo.innerHTML += formInput.value;
 
     // create button tag (delete button)
-    liTodo.innerHTML += '<button type="button" class="btn btn-danger btn-sm">Delete</button>';
+    liTodo.innerHTML += '<button id="delete' + items.length + '" type="button" class="btn btn-danger btn-sm">Delete</button>';
 
 
     // append the li tag
@@ -159,28 +170,50 @@ function calculate(event) {
 
     // get the tip value from the buttons 
     // see above (at selectors)
-
-    // convert it to decimal form
+    // convert tip to decimal form
     tip = Number(tip);
 
-    // add it to the total
-    const tipTotal = tip * total;
-    console.log(tipTotal);
+    // // add it to the total
+    // const tipTotal = tip * total;
+    // console.log(tipTotal);
 
     // get the sales tax value from the sales tax
     const salesTax = document.querySelectorAll('.form-control')[1].value;
     const taxTotal = (salesTax * 0.01) * total;
     console.log(taxTotal);
 
+    // add tax to current total
+    total = Math.round((taxTotal + total) * 100) / 100;
+
+    // calculate for tip (post-tax)
+    const tipTotal = tip * total;
+    console.log(tipTotal);
+
     // add it to the total, nearest tenths round
-    total = Math.round((tipTotal + taxTotal + total) * 100) / 100;
+    total = Math.round((tipTotal + total) * 100) / 100;
     console.log(total);
 
+
+
+
     const stats = document.querySelector('.modal-body');
-    stats.innerText = '\n                                           $' + total + '\n                                        '
-        ;
+    stats.innerText = 'Total Due:' + formatter.format(total);
 
 
 }
 
 
+// -----
+// delete button
+function deleteBtn(event) {
+    const deleteItem = event.target;
+    console.log(event.target);
+
+    // delete item line
+    if (deleteItem.classList[0] === "btn") {
+        formList.querySelector('.list-group-item').remove();
+        items.pop();
+
+    }
+
+}
