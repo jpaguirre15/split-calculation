@@ -203,17 +203,76 @@ function calculate(event) {
 }
 
 
-// // -----
-// // delete button
-// function deleteBtn(event) {
-//     const deleteItem = event.target;
-//     console.log(event.target);
+// -----
+// delete button
+function deleteBtn(event) {
 
-//     // delete item line
-//     if (deleteItem.classList[0] === "btn") {
-//         formList.querySelector('.list-group-item').remove();
-//         items.pop();
+    // event.target shows the html element of what is clicked
+    const deleteItem = event.target;
 
-//     }
+    // will output the html line of the delete button 
+    console.log(event.target);
 
-// }
+
+    // access id of the delete button that was pressed
+    let deleteID = event.target.id;
+    console.log(deleteID);
+    console.log(typeof (deleteID));
+
+    console.log(document.querySelector('#' + deleteID));
+    console.log(document.querySelector('#' + deleteID).parentNode);
+
+
+    // only delete if the button is pressed 
+    if (deleteItem.classList[0] === "btn") {
+
+
+
+        // pop the element in the array
+        // convert array to numbers
+        items = items.map(Number);
+        // access text of div element to get the value 
+        let divValue = document.querySelector('#item' + numberExtract(deleteID));
+
+        // make it into a number 
+        divValue = Number(divValue.innerText);
+        console.log(divValue);
+        // value to be removed, make it into an index
+        const index = items.indexOf(divValue)
+        if (index > -1) {
+            items.splice(index, 1); // 2nd parameter means remove one item only
+        }
+
+        // delete item line
+        document.querySelector('#' + deleteID).parentNode.remove();
+    }
+
+
+
+
+
+
+    // pop sample (delete specific element in array)
+    // const array = [2, 5, 9];
+
+    // console.log(array);
+
+    // const index = array.indexOf(5);
+    // if (index > -1) {
+    //     array.splice(index, 1); // 2nd parameter means remove one item only
+    // }
+
+    // // array = [2, 9]
+    // console.log(array);
+
+
+
+}
+
+// -----
+// extract number from ID's 
+function numberExtract(text) {
+    let number = text.match(/\d/g);
+    number = number.join("");
+    return number;
+}
