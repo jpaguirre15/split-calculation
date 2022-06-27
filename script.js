@@ -1,15 +1,5 @@
 "use strict";
 
-// **notes
-// - will probably need to create <span> text for the text
-
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// MISC
-var formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-});
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -147,8 +137,19 @@ function tipValue(event) {
     for (let i = 0; i < tipSelect.length; i++) {
         // if button is selected, set that as the new tip value 
         if (tipSelect[i].checked === true) {
-            console.log(tipSelect[i].value + ' is checked');
-            tip = tipSelect[i].value;
+            // if tip is not custom % 
+            if (tipSelect[i].checked !== 'custom') {
+                console.log(tipSelect[i].value + ' is checked');
+                tip = tipSelect[i].value;
+
+                // create an if statement for if the custom box is showing, remove it 
+
+            }
+            // if tip is customed (do it for dollar value)
+            else {
+                console.log(tipSelect[i].value + ' is checked');
+
+            }
         }
     }
 
@@ -157,6 +158,10 @@ function tipValue(event) {
 // -----
 // calculations 
 function calculate(event) {
+
+    // modal selector
+    const stats = document.querySelector('.modal-body');
+
     // convert the whole array to numbers
     items = items.map(Number);
 
@@ -167,6 +172,9 @@ function calculate(event) {
     }, 0);
 
     console.log(total);
+    // stats.innerText = 'Sub Total: ' + formatter.format(total) + "\r\n";
+    // stats.innerHTML += '<br>';
+
 
     // get the tip value from the buttons 
     // see above (at selectors)
@@ -181,6 +189,8 @@ function calculate(event) {
     const salesTax = document.querySelectorAll('.form-control')[1].value;
     const taxTotal = (salesTax * 0.01) * total;
     console.log(taxTotal);
+    // stats.innerText += 'Tax Total: ' + formatter.format(taxTotal) + "\r\n";
+
 
     // add tax to current total
     total = Math.round((taxTotal + total) * 100) / 100;
@@ -188,6 +198,7 @@ function calculate(event) {
     // calculate for tip (post-tax)
     const tipTotal = tip * total;
     console.log(tipTotal);
+    // stats.innerText += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
 
     // add it to the total, nearest tenths round
     total = Math.round((tipTotal + total) * 100) / 100;
@@ -195,9 +206,8 @@ function calculate(event) {
 
 
 
-
-    const stats = document.querySelector('.modal-body');
-    stats.innerText = 'Total Due:' + formatter.format(total);
+    // insert grand total into the modal
+    stats.innerText = 'Grand Total: ' + formatter.format(total);
 
 
 }
@@ -248,26 +258,15 @@ function deleteBtn(event) {
     }
 
 
-
-
-
-
-    // pop sample (delete specific element in array)
-    // const array = [2, 5, 9];
-
-    // console.log(array);
-
-    // const index = array.indexOf(5);
-    // if (index > -1) {
-    //     array.splice(index, 1); // 2nd parameter means remove one item only
-    // }
-
-    // // array = [2, 9]
-    // console.log(array);
-
-
-
 }
+
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+// MISC
+var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
 
 // -----
 // extract number from ID's 
