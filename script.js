@@ -31,11 +31,13 @@ const calculateButton = document.querySelector('#calculate');
 // selectors for the tip buttons 
 const tipGroup = document.querySelector('.btn-group');
 const tipSelect = tipGroup.querySelectorAll('.btn-check');
+const customTip = document.querySelector('#custom-tip');
 let tip = 0;
 
 // -----
 // selector for the delete button
 // see formList variable
+
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -138,21 +140,108 @@ function tipValue(event) {
         // if button is selected, set that as the new tip value 
         if (tipSelect[i].checked === true) {
             // if tip is not custom % 
-            if (tipSelect[i].checked !== 'custom') {
+            if (tipSelect[i].value === '.15' || tipSelect[i].value === '0' || tipSelect[i].value === '.18' || tipSelect[i].value === '.20') {
                 console.log(tipSelect[i].value + ' is checked');
                 tip = tipSelect[i].value;
 
                 // create an if statement for if the custom box is showing, remove it 
-
+                if (document.querySelector('#form-tip') !== null) {
+                    document.querySelector('#form-tip').remove();
+                }
             }
             // if tip is customed (do it for dollar value)
             else {
-                console.log(tipSelect[i].value + ' is checked');
+                // disable for now 
 
+                event.preventDefault();
+                console.log(tipSelect[i].value + ' is checked');
+                console.log('is it really?');
+
+                // structure: form -> div -> span -- input 
+
+                // create <form> tag 
+                if (document.querySelector('#form-tip') === null) {
+                    const formTip = document.createElement('form');
+                    formTip.id = "form-tip";
+                    formTip.classList.add('d-flex');
+                    formTip.classList.add('justify-content-center');
+                    formTip.classList.add('align-items-center');
+                    formTip.classList.add('mb-4');
+
+                    // create <div> tag
+                    const divTip = document.createElement('div');
+                    divTip.classList.add('form-outline');
+                    divTip.classList.add('flex-fill');
+
+                    formTip.appendChild(divTip);
+                    console.log(formTip.appendChild(divTip));
+
+                    // create <span> tag
+                    const spanTip = document.createElement('span');
+                    spanTip.classList.add("input-group-text");
+                    spanTip.innerText = "$"
+
+                    divTip.appendChild(spanTip);
+
+
+                    const inputTip = document.createElement('input');
+                    inputTip.type = "text";
+                    inputTip.id = "form3";
+                    inputTip.classList.add("form-control");
+                    inputTip.ariaLabel = "Enter price(s) here, numbers only)";
+
+                    divTip.appendChild(inputTip);
+
+
+                    customTip.appendChild(formTip);
+
+                    customTip.innerHTML += '<h6 class="mb-3">Sub Total</h6>';
+
+                    // // for subtotal 
+                    // // create <form> tag 
+                    // formTip = document.createElement('form');
+                    // formTip.id = "form-tip";
+                    // formTip.classList.add('d-flex');
+                    // formTip.classList.add('justify-content-center');
+                    // formTip.classList.add('align-items-center');
+                    // formTip.classList.add('mb-4');
+
+                    // // create <div> tag
+                    // divTip = document.createElement('div');
+                    // divTip.classList.add('form-outline');
+                    // divTip.classList.add('flex-fill');
+
+                    // formTip.appendChild(divTip);
+                    // console.log(formTip.appendChild(divTip));
+
+                    // // create <span> tag
+                    // spanTip = document.createElement('span');
+                    // spanTip.classList.add("input-group-text");
+                    // spanTip.innerText = "$"
+
+                    // divTip.appendChild(spanTip);
+
+
+                    // inputTip = document.createElement('input');
+                    // inputTip.type = "text";
+                    // inputTip.id = "form3";
+                    // inputTip.classList.add("form-control");
+                    // inputTip.ariaLabel = "Enter price(s) here, numbers only)";
+
+                    // divTip.appendChild(inputTip);
+
+
+                    // customTip.appendChild(formTip);
+
+
+                    // // change input value of custom 
+                    // tip = tipSelect[i].value;
+
+                }
             }
         }
-    }
 
+    }
 }
 
 // -----
@@ -185,29 +274,61 @@ function calculate(event) {
     // const tipTotal = tip * total;
     // console.log(tipTotal);
 
-    // get the sales tax value from the sales tax
-    const salesTax = document.querySelectorAll('.form-control')[1].value;
-    const taxTotal = (salesTax * 0.01) * total;
-    console.log(taxTotal);
-    // stats.innerText += 'Tax Total: ' + formatter.format(taxTotal) + "\r\n";
+    if (tip === .15 || tip === 0 || tip === .18 || tip === .20) {
+
+        // get the sales tax value from the sales tax
+        const salesTax = document.querySelectorAll('.form-control')[1].value;
+        const taxTotal = (salesTax * 0.01) * total;
+        console.log(taxTotal);
+        // stats.innerText += 'Tax Total: ' + formatter.format(taxTotal) + "\r\n";
 
 
-    // add tax to current total
-    total = Math.round((taxTotal + total) * 100) / 100;
+        // add tax to current total
+        total = Math.round((taxTotal + total) * 100) / 100;
 
-    // calculate for tip (post-tax)
-    const tipTotal = tip * total;
-    console.log(tipTotal);
-    // stats.innerText += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
-
-    // add it to the total, nearest tenths round
-    total = Math.round((tipTotal + total) * 100) / 100;
-    console.log(total);
+        // calculate for tip (post-tax)
+        const tipTotal = tip * total;
+        console.log(tipTotal);
+        // stats.innerText += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
 
 
+        // add it to the total, nearest tenths round
+        total = Math.round((tipTotal + total) * 100) / 100;
+        console.log(total);
 
-    // insert grand total into the modal
-    stats.innerText = 'Grand Total: ' + formatter.format(total);
+
+
+        // insert grand total into the modal
+        stats.innerText = 'Grand Total: ' + formatter.format(total);
+    }
+    else {
+        const salesTax = document.querySelectorAll('.form-control')[2].value;
+        const taxTotal = (salesTax * 0.01) * total;
+        console.log(taxTotal);
+        // stats.innerText += 'Tax Total: ' + formatter.format(taxTotal) + "\r\n";
+
+
+        // add tax to current total
+        total = Math.round((taxTotal + total) * 100) / 100;
+
+        // calculate for tip (post-tax)
+        tipTotal = tip / total;
+        // convert it into percent 
+        tipTotal = tipTotal * total;
+        console.log(tipTotal);
+        // stats.innerText += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
+
+
+        // add it to the total, nearest tenths round
+        total = Math.round((tipTotal + total) * 100) / 100;
+        console.log(total);
+
+
+
+        // insert grand total into the modal
+        stats.innerText = 'Grand Total: ' + formatter.format(total);
+
+    }
 
 
 }
