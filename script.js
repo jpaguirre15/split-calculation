@@ -12,16 +12,10 @@ const addButton = document.querySelector('.btn');
 const formList = document.querySelector('.list-group');
 
 
-
-// check selector output
-// console.log(formInput);
-// console.log(addButton);
-// console.log(formList);
-
 // -----
 // keep track of items in list, push items in the array
 // keep as var so we can convert the values to Numbers
-var items = [];
+let items = [];
 
 // -----
 // selectors for the calculate function
