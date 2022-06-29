@@ -260,9 +260,17 @@ function calculate(event) {
 
     }, 0);
 
+    // sum up everything in items array
+    let total1 = items.reduce(function (a, b) {
+        return a + b;
+
+    }, 0);
+
+
     console.log(total);
-    // stats.innerText = 'Sub Total: ' + formatter.format(total) + "\r\n";
-    // stats.innerHTML += '<br>';
+    stats.innerHTML = 'Sub Total: ' + formatter.format(total) + "\r\n\r\n";
+
+
 
 
     // get the tip value from the buttons 
@@ -276,11 +284,15 @@ function calculate(event) {
 
     if (tip === .15 || tip === 0 || tip === .18 || tip === .20) {
 
+        // Post Tax Calculations 
+
+        stats.innerHTML += "<strong>" + 'Post-Tax Tip Calculation' + "</strong>" + "\r\n";
+
         // get the sales tax value from the sales tax
         const salesTax = document.querySelectorAll('.form-control')[1].value;
         const taxTotal = (salesTax * 0.01) * total;
         console.log(taxTotal);
-        // stats.innerText += 'Tax Total: ' + formatter.format(taxTotal) + "\r\n";
+        stats.innerHTML += 'Tax Total: ' + formatter.format(taxTotal) + "\r\n";
 
 
         // add tax to current total
@@ -289,7 +301,7 @@ function calculate(event) {
         // calculate for tip (post-tax)
         const tipTotal = tip * total;
         console.log(tipTotal);
-        // stats.innerText += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
+        stats.innerHTML += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
 
 
         // add it to the total, nearest tenths round
@@ -297,9 +309,36 @@ function calculate(event) {
         console.log(total);
 
 
+        // insert grand total into the modal
+        stats.innerHTML += 'Grand Total: ' + formatter.format(total) + "\r\n\r\n";
+
+        // Pre Tax Tip Calculations
+
+        stats.innerHTML += "<strong>" + 'Pre-Tax Tip Calculation' + "</strong>" + "\r\n";
+
+        // get the sales tax value from the sales tax
+        const salesTax1 = document.querySelectorAll('.form-control')[1].value;
+        const taxTotal1 = (salesTax1 * 0.01) * total1;
+        console.log(taxTotal1);
+        stats.innerHTML += 'Tax Total: ' + formatter.format(taxTotal1) + "\r\n";
+
+        // calculate for tip (pre-tax)
+        const tipTotal1 = tip * total1;
+        console.log(tipTotal1);
+        stats.innerHTML += 'Tip Total: ' + formatter.format(tipTotal1) + "\r\n";
+
+
+
+        // add it to the total, nearest tenths round
+        total1 = Math.round((tipTotal1 + taxTotal1 + total1) * 100) / 100;
+        console.log(total1);
+
 
         // insert grand total into the modal
-        stats.innerText = 'Grand Total: ' + formatter.format(total);
+        stats.innerText += 'Grand Total: ' + formatter.format(total1);
+
+
+
     }
     else {
         const salesTax = document.querySelectorAll('.form-control')[2].value;
@@ -316,7 +355,7 @@ function calculate(event) {
         // convert it into percent 
         tipTotal = tipTotal * total;
         console.log(tipTotal);
-        // stats.innerText += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
+        stats.innerHTML += 'Tip Total: ' + formatter.format(tipTotal) + "\r\n";
 
 
         // add it to the total, nearest tenths round
