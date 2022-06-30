@@ -68,52 +68,55 @@ function addTodo(event) {
 
     // structure: <li> --> <div> --> <input> 
 
-    // create li tag 
-    const liTodo = document.createElement('li');
+    // create html '<li>' element: 
+    // <li class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">... </li>
+    const liItems = document.createElement('li');
+    // add class list of li 
+    liItems.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center", "border-start-0", "border-top-0", "border-end-0", "border-bottom", "rounded-0", "mb-2");
 
-    liTodo.classList.add("list-group-item")
-    liTodo.classList.add("d-flex")
-    liTodo.classList.add("justify-content-between")
-    liTodo.classList.add("align-items-center")
-    liTodo.classList.add("border-start-0")
-    liTodo.classList.add("border-top-0")
-    liTodo.classList.add("border-end-0")
-    liTodo.classList.add("border-bottom")
-    liTodo.classList.add("rounded-0")
-    liTodo.classList.add("mb-2")
+    // create html '<div>' element:
+    // <div id="item0" class="d-flex align-items-center"> ... </div>
+    const divItems = document.createElement('div');
+    // set id attribute of div
+    divItems.setAttribute('id', 'item' + items.length);
+    // add class list of div
+    divItems.classList.add("d-flex", "align-items-center");
 
-    // create div tag (inside li tag)
-    const divTodo = document.createElement('div');
+    // append the div tag
+    // li (parent)
+    //  - div (child)
+    liItems.appendChild(divItems);
 
-    divTodo.setAttribute('id', 'item' + items.length);
+    // // create html '<input>' element:
+    // // <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
+    // const checkbox = document.createElement('input');
+    // // add class list of input 
+    // checkbox.classList.add('form-check-input', 'me-2');
+    // // add type of input
+    // checkbox.type = "checkbox";
+    // // add value of input
+    // checkbox.value = "";
+    // // add ariaLabel of input 
+    // checkbox.ariaLabel = "...";
 
-    divTodo.classList.add("d-flex");
-    divTodo.classList.add("align-items-center");
-
-
-    // append the div tag (inside li tag)
-    liTodo.appendChild(divTodo);
-
-    // create input tag (inside div tag)
-    const checkbox = document.createElement('input');
-    checkbox.classList.add('form-check-input');
-    checkbox.classList.add('me-2');
-    checkbox.type = "checkbox";
-    checkbox.value = "";
-    checkbox.ariaLabel = "...";
-
-    // append the input tag (inside div tag)
-    divTodo.appendChild(checkbox);
+    // // append the input tag 
+    // // li (parent-parent)
+    // // - div (parent)
+    // //   - input (child)
+    // divItems.appendChild(checkbox);
 
     // name of list that is added before the closing div tag
-    divTodo.innerHTML += formInput.value;
+    // THIS IS A VUNERABILITY and UNSECURE
+    // create an if statement that says if input is not a number or a dot, alert user that they didn't insert a number 
+    divItems.innerHTML += formInput.value;
 
     // create button tag (delete button)
-    liTodo.innerHTML += '<button id="delete' + items.length + '" type="button" class="btn btn-danger btn-sm">Delete</button>';
-
+    liItems.innerHTML += '<button id="delete' + items.length + '" type="button" class="btn btn-danger btn-sm">Delete</button>';
 
     // append the li tag
-    formList.appendChild(liTodo);
+    // ul (parent)
+    // - li (child)
+    formList.appendChild(liItems);
 
     // remove disable status when items are added
     calculateButton.disabled = false;
