@@ -39,7 +39,7 @@ let tip = 0;
 
 // -----
 // add an item to the list
-addButton.addEventListener('click', addTodo);
+addButton.addEventListener('click', addItem);
 
 // -----
 // calculate button
@@ -62,7 +62,7 @@ formList.addEventListener('click', deleteBtn);
 
 // -----
 // add an item to the list 
-function addTodo(event) {
+function addItem(event) {
     // stop page from refreshing
     event.preventDefault();
 
@@ -126,7 +126,6 @@ function addTodo(event) {
 
     // clear to do input value
     formInput.value = '';
-
 };
 
 // -----
@@ -266,8 +265,6 @@ function calculate(event) {
 
     console.log(total);
     stats.innerHTML = 'Sub Total: ' + formatter.format(total) + "\r\n\r\n";
-
-
 
 
     // get the tip value from the buttons 
