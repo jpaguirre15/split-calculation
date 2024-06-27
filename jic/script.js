@@ -18,6 +18,8 @@ const tipGroup = document.querySelector('.btn-group');
 const tipSelect = tipGroup.querySelectorAll('.btn-check');
 const customTipInput = document.querySelector('#custom-tip-input');
 const customTipField = document.querySelector('#custom-tip');
+const preTaxTab = document.querySelector('#pre-tax');
+const postTaxTab = document.querySelector('#post-tax');
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -27,6 +29,8 @@ addButton.addEventListener('click', addItem);
 calculateButton.addEventListener('click', calculateClick);
 tipGroup.addEventListener('change', handleTipChange);
 formList.addEventListener('click', deleteBtn);
+formInput.addEventListener('input', checkCalculateButtonState);
+customTipField.addEventListener('input', checkCalculateButtonState);
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -46,7 +50,7 @@ function addItem(event) {
     });
 
     formInput.value = '';
-    calculateButton.disabled = false;
+    checkCalculateButtonState();
 }
 
 // create list item
@@ -72,6 +76,7 @@ function handleTipChange(event) {
     } else {
         customTipInput.style.display = 'none';
     }
+    checkCalculateButtonState();
 }
 
 // extract tip value 
@@ -90,12 +95,11 @@ function tipValue() {
 
 // createReceipt
 function createReceipt(subTotal, tax, tip, grandTotal, status) {
-    const createReceiptModal = document.querySelector('.modal-body');
-    createReceiptModal.innerHTML += `<strong>${status} Tax Tip Calculation</strong><br>`;
-    createReceiptModal.innerHTML += `Sub Total: ${formatter.format(subTotal)}<br>`;
-    createReceiptModal.innerHTML += `Tax Total: ${formatter.format(tax)}<br>`;
-    createReceiptModal.innerHTML += `Tip Total: ${formatter.format(tip)}<br>`;
-    createReceiptModal.innerHTML += `Grand Total: ${formatter.format(grandTotal)}<br><br>`;
+    return `<strong>${status} Tax Tip Calculation</strong><br>
+            Sub Total: ${formatter.format(subTotal)}<br>
+            Tax Total: ${formatter.format(tax)}<br>
+            Tip Total: ${formatter.format(tip)}<br>
+            You Owe: ${formatter.format(grandTotal)}<br><br>`;
 }
 
 // preTax and postTax Tip Calculations 
@@ -103,14 +107,14 @@ function calculations(object, status) {
     const newObject = Object.create(object);
     newObject.tip = status === "Pre" ? newObject.preTaxTipCalc() : newObject.postTaxTipCalc();
     newObject.grandTotal = newObject.grandTotalCalc();
-    createReceipt(object.subTotal, object.tax, newObject.tip, newObject.grandTotal, status);
+    return createReceipt(object.subTotal, object.tax, newObject.tip, newObject.grandTotal, status);
 }
 
 // calculateClick function  
 function calculateClick(event) {
     // Clear the modal content
-    const createReceiptModal = document.querySelector('.modal-body');
-    createReceiptModal.innerHTML = '';
+    preTaxTab.innerHTML = '';
+    postTaxTab.innerHTML = '';
 
     const salesTax = parseFloat(document.querySelector('#sales-tax').value) / 100;
     const receipt = {
@@ -132,12 +136,8 @@ function calculateClick(event) {
         },
     };
     receipt.tax = receipt.taxCalc();
-    calculations(receipt, "Pre");
-    
-    // Add a separator line between Pre and Post tax calculations
-    createReceiptModal.innerHTML += `<hr>`;
-    
-    calculations(receipt, "Post");
+    preTaxTab.innerHTML += calculations(receipt, "Pre");
+    postTaxTab.innerHTML += calculations(receipt, "Post");
 }
 
 // delete button
@@ -154,6 +154,14 @@ function deleteBtn(event) {
         }
         document.querySelector('#' + deleteID).parentNode.remove();
     }
+    checkCalculateButtonState();
+}
+
+// check if calculate button should be enabled
+function checkCalculateButtonState() {
+    const isCustomTipSelected = document.querySelector('#btnradio4').checked;
+    const isCustomTipEmpty = isCustomTipSelected && customTipField.value.trim() === '';
+    calculateButton.disabled = items.length === 0 || isCustomTipEmpty;
 }
 
 // format numbers into USD 
