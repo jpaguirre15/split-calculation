@@ -18,6 +18,7 @@ const tipGroup = document.querySelector('.btn-group');
 const tipSelect = tipGroup.querySelectorAll('.btn-check');
 const customTipInput = document.querySelector('#custom-tip-input');
 const customTipField = document.querySelector('#custom-tip');
+const salesTaxField = document.querySelector('#sales-tax');
 const preTaxTab = document.querySelector('#pre-tax');
 const postTaxTab = document.querySelector('#post-tax');
 
@@ -31,10 +32,21 @@ tipGroup.addEventListener('change', handleTipChange);
 formList.addEventListener('click', deleteBtn);
 formInput.addEventListener('input', checkCalculateButtonState);
 customTipField.addEventListener('input', checkCalculateButtonState);
+salesTaxField.addEventListener('input', checkCalculateButtonState);
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
 // FUNCTIONS
+
+// Validate input to accept only numbers and valid decimals
+function validateInput(value) {
+    return /^\d+(\.\d{1,2})?$/.test(value);
+}
+
+// Remove any unnecessary characters
+function cleanInput(value) {
+    return value.replace(/[^\d.]/g, '');
+}
 
 // add an item to the list 
 function addItem(event) {
@@ -43,9 +55,10 @@ function addItem(event) {
     const inputValues = formInput.value.split(/[\s,]+/);
 
     inputValues.forEach(value => {
-        if (value.trim() !== '') {
-            createListItem(value.trim());
-            items.push(Number(value.trim()));
+        let cleanedValue = cleanInput(value.trim());
+        if (validateInput(cleanedValue)) {
+            createListItem(cleanedValue);
+            items.push(Number(cleanedValue));
         }
     });
 
@@ -99,7 +112,7 @@ function createReceipt(subTotal, tax, tip, grandTotal, status) {
             Sub Total: ${formatter.format(subTotal)}<br>
             Tax Total: ${formatter.format(tax)}<br>
             Tip Total: ${formatter.format(tip)}<br>
-            You Owe: ${formatter.format(grandTotal)}<br><br>`;
+            <br><strong>You Owe: ${formatter.format(grandTotal)}</strong><br><br>`;
 }
 
 // preTax and postTax Tip Calculations 
@@ -112,11 +125,16 @@ function calculations(object, status) {
 
 // calculateClick function  
 function calculateClick(event) {
+    // Clean custom tip input
+    if (document.querySelector('#btnradio4').checked) {
+        customTipField.value = cleanInput(customTipField.value);
+    }
+
     // Clear the modal content
     preTaxTab.innerHTML = '';
     postTaxTab.innerHTML = '';
 
-    const salesTax = parseFloat(document.querySelector('#sales-tax').value) / 100;
+    const salesTax = parseFloat(salesTaxField.value) / 100;
     const receipt = {
         subTotal: itemSum(items),
         tax: null,
